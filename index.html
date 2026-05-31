@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
     /* =========================================================
        RESET & BASE
@@ -369,16 +370,9 @@
       grid-row: 1;
       padding: 1.5rem 0 1.5rem 1.5rem;
     }
-    /* Hide the unused side (legacy left/right divs) */
-    .timeline-entry__card--left,
-    .timeline-entry__card--right { display: none; }
-    /* Show only the right card; left spacers become no-ops */
+    /* Hide the unused side */
+    .timeline-entry__card--left  { display: none; }
     .timeline-entry__card--right { display: block; }
-
-    /* For the entries that historically had the card on the left,
-       show the left card instead (odd entries: Barthelemy, Nicolas, Felix sr., Simon, Franciscus) */
-    .timeline-entry:nth-child(odd) .timeline-entry__card--left  { display: block; }
-    .timeline-entry:nth-child(odd) .timeline-entry__card--right { display: none; }
 
     .person-card {
       background: #fff;
@@ -554,8 +548,71 @@
     }
 
     /* =========================================================
-       MAP SECTION
+       HISTORISCHE CONTEXT BLOK
     ========================================================= */
+    .context-toggle {
+      margin-top: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0;
+    }
+    .context-toggle summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 0 0.65rem;
+      cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .context-toggle summary::-webkit-details-marker { display: none; }
+    .context-toggle summary:hover { color: var(--gold-light); }
+    .context-toggle summary::after {
+      content: '＋';
+      margin-left: auto;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--gold);
+      transition: transform 0.2s;
+    }
+    .context-toggle[open] summary::after { content: '－'; }
+    .context-body {
+      padding: 0.5rem 0 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .ctx-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: baseline;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .ctx-icon {
+      font-size: 0.8em;
+      flex-shrink: 0;
+      margin-top: 0.1em;
+      width: 1.2em;
+      text-align: center;
+    }
+    .ctx-row strong {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-right: 0.3em;
+      white-space: nowrap;
+    }
     .route-section {
       background: var(--cream);
       padding: 5rem 0;
@@ -723,8 +780,9 @@
       <span class="page-nav__logo">Lebesque</span>
       <ul class="page-nav__links">
         <li><a href="#inleiding">Inleiding</a></li>
+        <li><a href="#bewijs">Bewijs &amp; foto's</a></li>
         <li><a href="#stamboom">Stamboom</a></li>
-        <li><a href="#route">De Migratieroute</a></li>
+        <li><a href="#route">Migratieroute</a></li>
         <li><a href="#bronnen">Bronnen</a></li>
       </ul>
     </div>
@@ -734,13 +792,11 @@
        HERO
   ============================= -->
   <header class="hero" id="top">
-    <!-- Historical image of Picardy / French countryside (Wikimedia Commons) -->
     <img
       class="hero__image"
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Saint-Andr%C3%A9-Farivillers_%28Oise%29_vue_g%C3%A9n%C3%A9rale.jpg/1280px-Saint-Andr%C3%A9-Farivillers_%28Oise%29_vue_g%C3%A9n%C3%A9rale.jpg"
-      alt="Uitzicht op Saint-André-Farivillers"
+      src="images/image1.jpeg"
+      alt="De kerk van Saint-André-Farivillers, Picardië — stamplaats van de familie Lebesgue"
       loading="eager"
-      onerror="this.style.display='none'"
     />
     <div class="hero__overlay"></div>
     <div class="hero__content">
@@ -847,7 +903,96 @@
   <hr class="section-divider" />
 
   <!-- ============================
-       STAMBOOM (TIJDLIJN)
+       BEWIJS & AANDENKEN
+  ============================= -->
+  <section id="bewijs" style="background: var(--cream); padding: 5rem 0;">
+    <div class="container">
+      <div class="section-header" style="text-align:left; padding-top:0;">
+        <span class="label">Bewijs &amp; aandenken</span>
+        <h2>Sporen in steen, papier en beeld</h2>
+        <p style="text-align:left; margin:0;">Foto's en documenten die de familiegeschiedenis tastbaar maken</p>
+      </div>
+
+      <!-- === KERK + STEEN === -->
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+
+        <!-- Kerkfoto -->
+        <figure style="margin:0;">
+          <div style="border-radius:6px; overflow:hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.13);">
+            <img
+              src="images/image1.jpeg"
+              alt="De kerk van Saint-André-Farivillers, Picardië"
+              style="width:100%; display:block; filter: sepia(15%) contrast(1.05);"
+              loading="lazy"
+            />
+          </div>
+          <figcaption style="margin-top:0.85rem; font-family:'Source Sans 3',sans-serif; font-size:0.8rem; color:var(--ink-light); line-height:1.55;">
+            <strong style="color:var(--ink); display:block; font-size:0.88rem; margin-bottom:0.2rem;">Église Saint-André, Saint-André-Farivillers</strong>
+            De gotische dorpskerk (koor 1555) in het hart van Picardië, waar de familie Lebesgue generaties lang
+            werd gedoopt, getrouwd en begraven. Het schip is nog middeleeuws; het koor met de grote ramen dateert
+            uit de Renaissance. De kerk staat beschermd als <em>monument historique</em> (1992).
+          </figcaption>
+        </figure>
+
+        <!-- Kerksteen -->
+        <figure style="margin:0;">
+          <div style="border-radius:6px; overflow:hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.18); position:relative;">
+            <img
+              src="images/image2.jpeg"
+              alt="Inscriptie LEBESGUE FANGISTE in de muur van de kerk van Saint-André-Farivillers"
+              style="width:100%; display:block;"
+              loading="lazy"
+            />
+            <div style="
+              position:absolute; inset:0;
+              background: linear-gradient(to top, rgba(20,18,14,0.55) 0%, transparent 50%);
+              pointer-events:none;">
+            </div>
+            <div style="
+              position:absolute; bottom:1rem; left:1rem; right:1rem;
+              font-family:'Playfair Display',serif; font-size:1.05rem; font-style:italic;
+              color:#fff; text-shadow: 0 1px 4px rgba(0,0,0,0.8); line-height:1.3;">
+              "LEBESGUE / FANGISTE"
+            </div>
+          </div>
+          <figcaption style="margin-top:0.85rem; font-family:'Source Sans 3',sans-serif; font-size:0.8rem; color:var(--ink-light); line-height:1.55;">
+            <strong style="color:var(--ink); display:block; font-size:0.88rem; margin-bottom:0.2rem;">De familienaam in steen — kerk van Saint-André-Farivillers</strong>
+            In de buitenmuur van de kerk is de naam <strong>LEBESGUE</strong> ingegraveerd, vergezeld van het woord
+            <strong>FANGISTE</strong>. Dit geeft aan dat een lid van de familie een officiële functie bij de kerk
+            bekleedde — vermoedelijk als <em>fangiste</em> (kerkelijk ambtenaar of beheerder van kerkelijke goederen).
+            Dit tasbare bewijs verbindt de familie direct aan deze kerk in Picardië.
+          </figcaption>
+        </figure>
+
+      </div><!-- /grid -->
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- Lightbox stijl: volle breedte foto bij klikken op kerk/steen -->
+  <style>
+    .photo-hero {
+      cursor: zoom-in;
+      position: relative;
+    }
+    .photo-hero:hover::after {
+      content: '🔍 Vergroten';
+      position: absolute;
+      bottom: 0.7rem;
+      right: 0.7rem;
+      background: rgba(20,18,14,0.75);
+      color: var(--gold-light);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 3px;
+    }
+    figure { cursor: default; }
+  </style>
+
+  <hr class="section-divider" />
   ============================= -->
   <section class="timeline-section" id="stamboom">
     <div class="container">
@@ -891,6 +1036,16 @@
                 Familiedocument; registratie Saint-André-Farivillers
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Hendrik IV (Edict van Nantes 1598), daarna Lodewijk XIII. Engeland: Elizabeth I, daarna James I &amp; Charles I.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⛪</span><span><strong>Kerk</strong> Reformatie en contrahervorming in volle gang; jezuïeten floreren in Europa.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Dertigjarige Oorlog (1618–1648) teistert Europa; godsdienstoorlogen in Frankrijk.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst</strong> Shakespeare schrijft Romeo &amp; Julia (1595). Caravaggio revolutioneert de schilderkunst met dramatisch lichtgebruik.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Galileo Galilei doet zijn eerste ontdekkingen. Blaise Pascal bouwt een rekenmachine (1642).</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -934,6 +1089,15 @@
                 Familiedocument
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Lodewijk XIV (nog kind), bestuurd door moeder Anna van Oostenrijk en kardinaal Mazarin.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Engelse Burgeroorlog: Charles I geëxecuteerd (1649); Oliver Cromwell sticht het Engelse Gemenebest.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst</strong> Rembrandt van Rijn — meesterlijke portretten met dramatisch licht en schaduw. Barok op zijn hoogtepunt.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Galileo Galilei — telescopische waarnemingen van de maan en planeten. Descartes publiceert zijn <em>Meditationes</em> (1641).</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -941,7 +1105,12 @@
 
       <!-- ── GENERATIE 8: Nicolas ── -->
       <div class="timeline-entry" role="listitem">
-        <div class="timeline-entry__card timeline-entry__card--left">
+        <div class="timeline-entry__card timeline-entry__card--left"></div>
+        <div class="timeline-entry__spine">
+          <div class="timeline-entry__dot"></div>
+          <span class="timeline-entry__year">1649</span>
+        </div>
+        <div class="timeline-entry__card timeline-entry__card--right">
           <article class="person-card">
             <div class="person-card__image-wrap">
               <div class="person-card__image-placeholder">
@@ -967,14 +1136,17 @@
                 Familiedocument
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Lodewijk XIV, de Zonnekoning, bouwt Versailles. Herroeping Edict van Nantes (1685) drijft honderdduizenden protestanten op de vlucht.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst</strong> Rembrandt van Rijn op zijn hoogtepunt. Jan Vermeer en de Hollandse Meesters. Barok muziek bloeit.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Isaac Newton formuleert de zwaartekrachtswet (1687). Leibniz ontwikkelt de infinitesimaalrekening.</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
-        <div class="timeline-entry__spine">
-          <div class="timeline-entry__dot"></div>
-          <span class="timeline-entry__year">1649</span>
-        </div>
-        <div class="timeline-entry__card timeline-entry__card--right"></div>
       </div>
 
       <!-- ── GENERATIE 7: Charles ── -->
@@ -1011,6 +1183,15 @@
                 Familiedocument; mogelijk Oise departementale archieven
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Lodewijk XIV regeert absoluut; bouwt het paleis van Versailles als symbool van macht.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Nederland: het <em>Rampjaar</em> 1672 — aangevallen door Frankrijk én Engeland; een keerpunt in de vaderlandse geschiedenis.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst &amp; Muziek</strong> Johann Sebastian Bach wordt geboren (1685). John Locke legt de basis voor het moderne liberalisme.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Thomas Savery bouwt de eerste stoommachine (1698). Robert Hooke doet baanbrekende natuurkundige experimenten.</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -1046,6 +1227,14 @@
                 Familiedocument; Archives Départementales de l'Oise
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Lodewijk XIV (Zonnekoning), daarna Lodewijk XV "de Geliefde". Een tijdperk van absolute monarchie en pracht &amp; praal.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Isaac Newton — wetten van beweging en zwaartekracht. De calculus, onafhankelijk ontwikkeld door Newton én Leibniz, verandert de wiskunde voorgoed.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Muziek</strong> Johann Sebastian Bach componeert zijn grootste werken. De barokmuziek bereikt haar hoogtepunt.</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -1097,6 +1286,15 @@
                 Stadsarchief Rotterdam, DTB Begraven — begrafenis 13-11-1805 bevestigd
                 <span class="verification-badge verification-badge--partial">Gedeeltelijk bevestigd</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> Frankrijk: Lodewijk XV "de Geliefde". Een tijd van Verlichting en toenemend politiek tumult.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">💡</span><span><strong>Verlichting</strong> Voltaire pleit voor vrijheid van meningsuiting en religieuze tolerantie. Rousseau, Diderot en de Encyclopédistes hervormen het denken.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Benjamin Franklin — experimenten met elektriciteit; uitvinding van de bliksemafleider. James Watt verbetert de stoommachine (1769).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Zevenjarige Oorlog (1756–1763). Aan het einde van zijn leven: de Amerikaanse Onafhankelijkheidsoorlog en het begin van de Franse Revolutie (1789).</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -1134,12 +1332,15 @@
                 BHIC: overlijden 21-12-1848 ✓ · huwelijk 9-5-1802 ✓ · meerdere kinderakten ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
-            </div>
-          </article>
-        </div>
-        <div class="timeline-entry__spine">
-          <div class="timeline-entry__dot"></div>
-          <span class="timeline-entry__year">1772</span>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Franse Revolutie (1789) en Terreur onder Robespierre. Napoleon Bonaparte grijpt de macht (1799). Slag bij Waterloo (1815).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten</strong> George Washington — eerste Amerikaans president. In Nederland: Bataafse Republiek, Koninkrijk Holland, dan Verenigd Koninkrijk (Willem I).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> James Watt — stoommachine en het begin van de Industriële Revolutie. Edward Jenner — eerste vaccinatie tegen pokken (1796).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst</strong> Beethoven componeert zijn eerste symfonieën. Goethe schrijft <em>Faust</em>. Een tijd van romantiek en revolutie.</span></div>
+                </div>
+              </details>
         </div>
         <div class="timeline-entry__card timeline-entry__card--right"></div>
       </div>
@@ -1184,6 +1385,16 @@
                 BHIC: geboorte 25-4-1813 ✓ (doc. zegt 26-4) · overlijden 12-1-1881 ✓ · huwelijk Jacoba Samuels ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten NL</strong> Koning Willem I (1815–1840) en Willem II (–1849). België scheidt af (1830). In Rome: Paus Pius VII en later Pius IX.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten int.</strong> Engeland: George IV, daarna Koningin Victoria — tijdperk van industrialisatie en Brits imperialisme.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Michael Faraday — elektromagnetisme en de eerste elektrische motor (1821). Joseph Niépce neemt de eerste foto ooit (1826).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Muziek &amp; Kunst</strong> Beethoven, Schubert en later Brahms. Romantiek in volle bloei. Victor Hugo schrijft <em>Les Misérables</em>.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Revolutiejaar 1848 treft heel Europa. Eindhoven groeit langzaam van marktstadje naar industriestad.</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
@@ -1191,7 +1402,12 @@
 
       <!-- ── GENERATIE 2: Johannes Simon (Jan) ── -->
       <div class="timeline-entry" role="listitem">
-        <div class="timeline-entry__card timeline-entry__card--left">
+        <div class="timeline-entry__card timeline-entry__card--left"></div>
+        <div class="timeline-entry__spine">
+          <div class="timeline-entry__dot"></div>
+          <span class="timeline-entry__year">1864</span>
+        </div>
+        <div class="timeline-entry__card timeline-entry__card--right">
           <article class="person-card">
             <div class="person-card__image-wrap">
               <div class="person-card__image-placeholder">
@@ -1222,14 +1438,18 @@
                 BHIC: geboorte 22-5-1864 ✓ · Erfgoed Leiden: overlijden 1-1-1935 ✓ · huwelijk Anna van Zeijl ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Uitvindingen</strong> Telefoon door Alexander Graham Bell (1876). Gloeilamp door Thomas Edison (1879). Elektriciteit verandert het dagelijks leven.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Kunst</strong> Vincent van Gogh — gedurfde en expressieve werken verleggen de grenzen van de kunst. Charles Dickens — sociale kritiek in de literatuur.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten NL</strong> Willem III (–1890), daarna Koningin Wilhelmina. Nederland industrialiseert; Eindhoven groeit explosief (mede door Philips, 1891).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Conflict</strong> Frans-Duitse Oorlog (1870–71). Aan het einde van zijn leven: het begin van de Eerste Wereldoorlog (1914).</span></div>
+                </div>
+              </details>
             </div>
           </article>
         </div>
-        <div class="timeline-entry__spine">
-          <div class="timeline-entry__dot"></div>
-          <span class="timeline-entry__year">1864</span>
-        </div>
-        <div class="timeline-entry__card timeline-entry__card--right"></div>
       </div>
 
       <!-- ── GENERATIE 1: Piet ── -->
@@ -1273,12 +1493,16 @@
                 Erfgoed Leiden: geboorte 18-12-1899 ✓ · huwelijksakte 27-9-1929 ✓ (kerkdatum: 2-10-1929)
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-    </div><!-- /.timeline -->
+              <details class="context-toggle">
+                <summary>🌍 De wereld in zijn tijd</summary>
+                <div class="context-body">
+                  <div class="ctx-row"><span class="ctx-icon">⚔️</span><span><strong>Oorlogen</strong> Eerste Wereldoorlog (1914–1918). Tweede Wereldoorlog (1940–1945) — Nederland bezet. Wederopbouw en Koude Oorlog.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🔬</span><span><strong>Wetenschap</strong> Albert Einstein — relativiteitstheorie (1905). Guglielmo Marconi — radio. Gebroeders Wright — eerste gemotoriseerde vlucht (1903).</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">👑</span><span><strong>Vorsten NL</strong> Koningin Wilhelmina (–1948), daarna Juliana. Nederland van agrarisch land naar moderne welvaartstaat.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">🎨</span><span><strong>Cultuur</strong> Dick Laan schrijft de Pinkeltje-verhalen. De televisie doet zijn intrede in Nederlandse huiskamers.</span></div>
+                  <div class="ctx-row"><span class="ctx-icon">💡</span><span><strong>Technologie</strong> Penicilline (1928), kernbom (1945), eerste mens op de maan (1969) — allemaal in Piets levensjaren.</span></div>
+                </div>
+              </details>
   </section>
 
   <!-- ============================
@@ -1321,9 +1545,7 @@
       </div>
 
       <div class="route-map">
-        <div class="route-map__placeholder">
-          Interactieve kaart — Migratieroute Familie Lebesque
-        </div>
+        <div id="migration-map" style="height:460px; border-radius:6px;"></div>
       </div>
     </div>
   </section>
@@ -1495,6 +1717,47 @@
       Typografie: Playfair Display &amp; Source Serif 4 (Google Fonts)
     </p>
   </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/sp8=" crossorigin=""></script>
+  <script>
+  (function() {
+    var locations = [
+      { name: 'Saint-André-Farivillers', sub: 'Picardië, Frankrijk',  lat: 49.665,  lng:  2.368,  years: '1595 – 1739',  gen: 'Gen. X – VI', color: '#8b1a1a' },
+      { name: 'Rotterdam',               sub: 'Holland, Nederland',    lat: 51.9225, lng:  4.4792, years: '~1739 – 1802', gen: 'Gen. V',      color: '#c9a34e' },
+      { name: 'Stevensweert',            sub: 'Limburg, Nederland',    lat: 51.125,  lng:  5.856,  years: '1772 (doop)', gen: 'Gen. IV',     color: '#b07d3a' },
+      { name: 'Eindhoven',               sub: 'Noord-Brabant',         lat: 51.4416, lng:  5.4697, years: '1802 – 1864', gen: 'Gen. IV – II',color: '#c9a34e' },
+      { name: 'Ter Aar',                 sub: 'Zuid-Holland',          lat: 52.1689, lng:  4.7325, years: '1864 – 1899', gen: 'Gen. II',     color: '#c9a34e' },
+      { name: 'Uithoorn',                sub: 'Noord-Holland',         lat: 52.2346, lng:  4.8291, years: '1899 – 1973', gen: 'Gen. I',      color: '#2d5a27' }
+    ];
+
+    var map = L.map('migration-map', { scrollWheelZoom: false })
+               .fitBounds([[49.0, 2.0], [52.6, 6.2]], { padding: [40, 40] });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> bijdragers',
+      maxZoom: 14
+    }).addTo(map);
+
+    var routeCoords = locations.map(function(l) { return [l.lat, l.lng]; });
+    L.polyline(routeCoords, { color: '#c9a34e', weight: 3, opacity: 0.85, dashArray: '8,6' }).addTo(map);
+
+    locations.forEach(function(loc, i) {
+      var r = (i === 0 || i === locations.length - 1) ? 11 : 9;
+      L.circleMarker([loc.lat, loc.lng], {
+        radius: r, fillColor: loc.color, color: '#fff',
+        weight: 2.5, opacity: 1, fillOpacity: 0.92
+      }).addTo(map).bindPopup(
+        '<div style="font-family:\'Playfair Display\',serif; min-width:170px;">' +
+        '<strong style="font-size:1rem;color:#1a1409;">' + loc.name + '</strong><br>' +
+        '<span style="font-size:.72rem;color:#7a6e60;text-transform:uppercase;letter-spacing:.06em;">' + loc.sub + '</span>' +
+        '<hr style="margin:.4rem 0;border:none;border-top:1px solid #e0d8cc;">' +
+        '<span style="font-size:.8rem;color:#c9a34e;font-weight:600;">' + loc.gen + '</span><br>' +
+        '<span style="font-size:.78rem;color:#4a4035;">' + loc.years + '</span></div>',
+        { maxWidth: 230 }
+      );
+    });
+  })();
+  </script>
 
 </body>
 </html>
