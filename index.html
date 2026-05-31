@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     /* =========================================================
        RESET & BASE
@@ -1552,7 +1552,42 @@
 
       <div class="route-map">
         <div id="migration-map" style="height:460px; border-radius:6px;"></div>
+
+        <!-- Location legend below map -->
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem;">
+          <a href="https://maps.google.com/?q=Saint-André-Farivillers,France" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#8b1a1a;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Saint-André-Farivillers</strong> <span style="color:#7a6e60;">1595–1739</span></span>
+          </a>
+          <a href="https://maps.google.com/?q=Rotterdam,Netherlands" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#c9a34e;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Rotterdam</strong> <span style="color:#7a6e60;">~1739–1802</span></span>
+          </a>
+          <a href="https://maps.google.com/?q=Stevensweert,Netherlands" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#b07d3a;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Stevensweert</strong> <span style="color:#7a6e60;">1772 (doop)</span></span>
+          </a>
+          <a href="https://maps.google.com/?q=Eindhoven,Netherlands" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#c9a34e;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Eindhoven</strong> <span style="color:#7a6e60;">1802–1864</span></span>
+          </a>
+          <a href="https://maps.google.com/?q=Ter+Aar,Netherlands" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#c9a34e;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Ter Aar</strong> <span style="color:#7a6e60;">1864–1899</span></span>
+          </a>
+          <a href="https://maps.google.com/?q=Uithoorn,Netherlands" target="_blank"
+             style="display:flex;align-items:center;gap:0.4rem;background:#1e1b17;border:1px solid #3a3530;border-radius:4px;padding:0.35rem 0.7rem;text-decoration:none;color:#e8dcc8;font-size:0.78rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#2d5a27;display:inline-block;flex-shrink:0;"></span>
+            <span><strong>Uithoorn</strong> <span style="color:#7a6e60;">1899–1973</span></span>
+          </a>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -1724,16 +1759,17 @@
     </p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/sp8=" crossorigin=""></script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-  (function() {
+  (function () {
     var locations = [
-      { name: 'Saint-André-Farivillers', sub: 'Picardië, Frankrijk',  lat: 49.665,  lng:  2.368,  years: '1595 – 1739',  gen: 'Gen. X – VI', color: '#8b1a1a' },
-      { name: 'Rotterdam',               sub: 'Holland, Nederland',    lat: 51.9225, lng:  4.4792, years: '~1739 – 1802', gen: 'Gen. V',      color: '#c9a34e' },
-      { name: 'Stevensweert',            sub: 'Limburg, Nederland',    lat: 51.125,  lng:  5.856,  years: '1772 (doop)', gen: 'Gen. IV',     color: '#b07d3a' },
-      { name: 'Eindhoven',               sub: 'Noord-Brabant',         lat: 51.4416, lng:  5.4697, years: '1802 – 1864', gen: 'Gen. IV – II',color: '#c9a34e' },
-      { name: 'Ter Aar',                 sub: 'Zuid-Holland',          lat: 52.1689, lng:  4.7325, years: '1864 – 1899', gen: 'Gen. II',     color: '#c9a34e' },
-      { name: 'Uithoorn',                sub: 'Noord-Holland',         lat: 52.2346, lng:  4.8291, years: '1899 – 1973', gen: 'Gen. I',      color: '#2d5a27' }
+      { name: 'Saint-André-Farivillers', sub: 'Picardië, Frankrijk',  lat: 49.665,  lng: 2.368,  years: '1595 – 1739',  gen: 'Gen. X – VI', color: '#8b1a1a' },
+      { name: 'Rotterdam',               sub: 'Holland, Nederland',    lat: 51.9225, lng: 4.4792, years: '~1739 – 1802', gen: 'Gen. V',      color: '#c9a34e' },
+      { name: 'Stevensweert',            sub: 'Limburg, Nederland',    lat: 51.125,  lng: 5.856,  years: '1772 (doop)', gen: 'Gen. IV',     color: '#b07d3a' },
+      { name: 'Eindhoven',               sub: 'Noord-Brabant',         lat: 51.4416, lng: 5.4697, years: '1802 – 1864', gen: 'Gen. IV – II',color: '#c9a34e' },
+      { name: 'Ter Aar',                 sub: 'Zuid-Holland',          lat: 52.1689, lng: 4.7325, years: '1864 – 1899', gen: 'Gen. II',     color: '#c9a34e' },
+      { name: 'Uithoorn',                sub: 'Noord-Holland',         lat: 52.2346, lng: 4.8291, years: '1899 – 1973', gen: 'Gen. I',      color: '#2d5a27' }
     ];
 
     var map = L.map('migration-map', { scrollWheelZoom: false })
@@ -1744,16 +1780,16 @@
       maxZoom: 14
     }).addTo(map);
 
-    var routeCoords = locations.map(function(l) { return [l.lat, l.lng]; });
-    L.polyline(routeCoords, { color: '#c9a34e', weight: 3, opacity: 0.85, dashArray: '8,6' }).addTo(map);
+    var routeCoords = locations.map(function (l) { return [l.lat, l.lng]; });
+    L.polyline(routeCoords, { color: '#c9a34e', weight: 3, opacity: 0.9, dashArray: '8,6' }).addTo(map);
 
-    locations.forEach(function(loc, i) {
+    locations.forEach(function (loc, i) {
       var r = (i === 0 || i === locations.length - 1) ? 11 : 9;
       L.circleMarker([loc.lat, loc.lng], {
         radius: r, fillColor: loc.color, color: '#fff',
         weight: 2.5, opacity: 1, fillOpacity: 0.92
       }).addTo(map).bindPopup(
-        '<div style="font-family:\'Playfair Display\',serif; min-width:170px;">' +
+        '<div style="font-family:serif;min-width:170px;">' +
         '<strong style="font-size:1rem;color:#1a1409;">' + loc.name + '</strong><br>' +
         '<span style="font-size:.72rem;color:#7a6e60;text-transform:uppercase;letter-spacing:.06em;">' + loc.sub + '</span>' +
         '<hr style="margin:.4rem 0;border:none;border-top:1px solid #e0d8cc;">' +
