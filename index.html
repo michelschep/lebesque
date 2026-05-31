@@ -304,6 +304,105 @@
     }
 
     /* =========================================================
+       ETYMOLOGY SECTION
+    ========================================================= */
+    .etymology-section {
+      background: var(--paper);
+      padding: 5rem 0;
+    }
+    .etymology-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .etymology-grid { grid-template-columns: 1fr; }
+    }
+    .etymology-card--main {
+      background: var(--ink);
+      color: var(--gold-light);
+      border-radius: 6px;
+      padding: 2.5rem;
+    }
+    .etym-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .etym-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .etym-meaning {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .etym-body {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 1rem;
+    }
+    .etym-quote {
+      border-left: 3px solid var(--gold);
+      margin: 0;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 0 4px 4px 0;
+    }
+    .etym-quote em {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.9);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .etym-quote cite {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.72rem;
+      color: var(--gold);
+      font-style: normal;
+      letter-spacing: 0.05em;
+    }
+    .etymology-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .etymology-fact {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1.1rem 1.25rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+    .efact-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+
+    /* =========================================================
        TIMELINE
     ========================================================= */
     .timeline-section {
@@ -546,6 +645,38 @@
       background: #e3f2fd;
       color: #1565c0;
     }
+    .person-card__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .person-card__links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      background: rgba(201,163,78,0.08);
+      border: 1px solid rgba(201,163,78,0.25);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      transition: background 0.15s;
+    }
+    .person-card__links a:hover {
+      background: rgba(201,163,78,0.18);
+      text-decoration: underline;
+    }
+    .person-card__links a::before {
+      content: '↗';
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
 
     /* =========================================================
        HISTORISCHE CONTEXT BLOK
@@ -780,6 +911,7 @@
       <span class="page-nav__logo">Lebesque</span>
       <ul class="page-nav__links">
         <li><a href="#inleiding">Inleiding</a></li>
+        <li><a href="#naam">Naam</a></li>
         <li><a href="#bewijs">Bewijs &amp; foto's</a></li>
         <li><a href="#stamboom">Stamboom</a></li>
         <li><a href="#route">Migratieroute</a></li>
@@ -850,10 +982,8 @@
       </p>
 
       <p>
-        De naam <em>Lebesque</em> is onmiskenbaar Frans en lijkt afgeleid van het woord <em>évesque</em>,
-        wat "bisschop" betekent. Mogelijk verwijst de naam naar "het land van de bisschop", wat suggereert dat
-        de familie wellicht verbonden was met kerkelijk eigendom in de regio. De naam van de familie is zelfs
-        teruggevonden op een steen van de lokale kerk — een tastbare herinnering aan hun lange aanwezigheid in het dorp.
+        De naam <em>Lebesque</em> heeft een fascinerende herkomst — zie de aparte paragraaf hieronder
+        voor de twee etymologische theorieën: de stotteraar én de bisschop.
       </p>
 
       <blockquote class="intro__pull">
@@ -903,8 +1033,79 @@
   <hr class="section-divider" />
 
   <!-- ============================
-       BEWIJS & AANDENKEN
+       NAAM BETEKENIS
   ============================= -->
+  <section class="etymology-section" id="naam">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Etymologie</span>
+        <h2>De betekenis van de naam <em>Lebesgue</em></h2>
+      </div>
+
+      <div class="etymology-grid">
+        <div class="etymology-card etymology-card--main">
+          <div class="etym-label">Vastgestelde herkomst</div>
+          <div class="etym-word">Le bègue</div>
+          <div class="etym-meaning">= "de stotteraar"</div>
+          <p class="etym-body">
+            De achternaam <em>Lebesgue</em> is een oud Frans <strong>sobriquet</strong> — een bijnaam die
+            aan een persoon kleefde en later erfelijk werd. Het woord stamt van <em>bègue</em>, het Franse
+            woord voor iemand die stottert of hakkelt. Geneanet omschrijft het als:
+          </p>
+          <blockquote class="etym-quote">
+            <em>"Sobriquet désignant une personne qui bégaie. Très répandu en Picardie."</em>
+            <cite>— Geneanet, naamsverklaring</cite>
+          </blockquote>
+        </div>
+
+        <div class="etymology-side">
+          <div class="etymology-fact">
+            <div class="efact-icon">📍</div>
+            <div>
+              <strong>Inheems Picardisch</strong><br>
+              64% van alle Lebesgue-dragers ter wereld woont nog steeds in <em>Hauts-de-France</em>
+              (het vroegere Picardie). De naam is diepgeworteld in deze regio en gaat waarschijnlijk
+              ver vóór Barthélemy terug.
+              <div style="font-size:0.75rem;color:var(--ink-light);margin-top:0.3rem;">Bron: Forebears.io — 214 dragers wereldwijd (2024)</div>
+            </div>
+          </div>
+
+          <div class="etymology-fact">
+            <div class="efact-icon">📝</div>
+            <div>
+              <strong>Schrijfwijze veranderde, betekenis niet</strong><br>
+              Of het nu <em>Lebesgue</em>, <em>Lebegue</em> of <em>Lebesque</em> gespeld is —
+              alle varianten klinken hetzelfde. De Nederlandse schrijfwijze (<em>-que</em>) is
+              een fonetische aanpassing bij inschrijving in de burgerlijke stand.
+            </div>
+          </div>
+
+          <div class="etymology-fact">
+            <div class="efact-icon">🔤</div>
+            <div>
+                <strong>Alternatieve theorie: <em>l'évesque</em> (bisschop)</strong><br>
+                Een andere overlevering koppelt de naam aan het Oud-Frans <em>évesque</em> ("bisschop") —
+                mogelijk als verwijzing naar kerkelijk grondbezit of een voorouder die voor de bisschop werkte.
+                De naam van de familie is zelfs teruggevonden op een steen van de lokale kerk in Saint-André-Farivillers,
+                wat dit verband voorstelbaar maakt. Beide theorieën zijn niet definitief uitgesloten;
+                de <em>bègue</em>-verklaring heeft echter de sterkste taalkundige en archiefdocumentatie.
+              </div>
+          </div>
+
+          <div class="etymology-fact">
+            <div class="efact-icon">🔬</div>
+            <div>
+              <strong>Bekende naamgenoot</strong><br>
+              De wiskundige <strong>Henri Léon Lebesgue</strong> (1875–1941, Beauvais) — bekend van de
+              Lebesgue-integraal — droeg dezelfde naam uit dezelfde regio, zij het een andere familietak.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
   <section id="bewijs" style="background: var(--cream); padding: 5rem 0;">
     <div class="container">
       <div class="section-header" style="text-align:left; padding-top:0;">
@@ -1026,20 +1227,31 @@
             <div class="person-card__body">
               <p class="person-card__gen-label">Generatie 10 · Grondlegger</p>
               <h3 class="person-card__name">Barthelemy Lebesgue</h3>
-              <p class="person-card__dates">† 24 mei 1650, Saint-André-Farivillers &nbsp;·&nbsp; geb. ~1595</p>
+              <p class="person-card__dates">geb. ~1590 · † ~1671, Saint-André-Farivillers &nbsp;<span style="font-size:0.7em;color:#a59a8a;" title="Familiedocument vermeldt † 24 mei 1650; online bronnen (MyHeritage/Geneanet) geven ~1671">⚠ sterfjaar onzeker</span></p>
               <ul class="person-card__facts">
                 <li><span class="fact-icon">📍</span> Saint-André-Farivillers, Picardië, Frankrijk</li>
-                <li><span class="fact-icon">💍</span> Adrianne de Hardiviller (~1601–1672)</li>
+               <li><span class="fact-icon">💍</span> (1) Adrianne de Hardiviller (~1601–1672)</li>
+               <li><span class="fact-icon">💍</span> (2) Adrienne Delachaussée (~1609–1672)</li>
               </ul>
               <p class="person-card__bio">
-                De vroegst bekende voorouder van de familie. Barthelemy leefde in het tijdperk van Lodewijk XIII
-                en kardinaal Richelieu, een periode van religieuze conflicten en absolutistische machtsvorming.
-                Zijn vrouw Adrianne overleefde hem met meer dan twintig jaar.
+               De vroegst bekende voorouder van de familie. Barthelemy leefde in het tijdperk van Lodewijk XIII
+               en kardinaal Richelieu. Uit recent onderzoek blijkt dat hij <strong>twee vrouwen</strong> had en
+               minstens 7 kinderen: Nicolas (1616), Job (1619), François (1623), Jacques (~1630), Louise (1633),
+               Sébastienne en André (1646). De familielijn loopt via <strong>Jacques (~1630)</strong>.
+               In Geneanet-boom "angelagnet" is hij aangemerkt als <em>INCOMPLET</em> — zijn ouders zijn
+               nergens gedocumenteerd. Zijn buurman <strong>Grégoire Lebesgue</strong> (~1585, <em>Écuyer</em>,
+               Sainte-Eusoye) was mogelijk een oudere broer, maar dit is niet bewezen.
               </p>
               <div class="person-card__source">
-                <span class="source-dot"></span>
-                Familiedocument; registratie Saint-André-Farivillers
-                <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
+               <span class="source-dot"></span>
+               Familiedocument; Geneanet "angelagnet"; MyHeritage
+               <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
+              </div>
+              <div class="person-card__links">
+               <a href="https://gw.geneanet.org/angelagnet?lang=fr&n=lebesgue&p=barthelemy" target="_blank">Geneanet (angelagnet)</a>
+               <a href="https://www.geni.com/people/Adrianne-de-Hardiviller/6000000185937459" target="_blank">Geni · Adrianne</a>
+               <a href="https://www.geni.com/people/Gregoire-Le-Besgue/6000000116606023841" target="_blank">Geni · Grégoire (broer?)</a>
+               <a href="https://ressources.archives.oise.fr/v2/ad60/registre.html" target="_blank">AD60 Oise archieven</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1089,6 +1301,10 @@
                 Familiedocument
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <div class="person-card__links">
+                <a href="https://gw.geneanet.org/angelagnet?lang=fr&n=lebesgue&p=jacques" target="_blank">Geneanet (angelagnet)</a>
+                <a href="https://ressources.archives.oise.fr/v2/ad60/registre.html" target="_blank">AD60 Oise archieven</a>
+              </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
                 <div class="context-body">
@@ -1136,6 +1352,10 @@
                 Familiedocument
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
               </div>
+              <div class="person-card__links">
+                <a href="https://gw.geneanet.org/angelagnet?lang=fr&n=lebesgue&p=nicolas" target="_blank">Geneanet (angelagnet)</a>
+                <a href="https://ressources.archives.oise.fr/v2/ad60/registre.html" target="_blank">AD60 Oise archieven</a>
+              </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
                 <div class="context-body">
@@ -1182,6 +1402,11 @@
                 <span class="source-dot"></span>
                 Familiedocument; mogelijk Oise departementale archieven
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
+              </div>
+              <div class="person-card__links">
+                <a href="https://gw.geneanet.org/angelagnet?lang=fr&n=lebesgue&p=charles" target="_blank">Geneanet (angelagnet)</a>
+                <a href="https://gw.geneanet.org/priedel?n=lebesgue&oc=1&p=charles&type=fiche" target="_blank">Geneanet (priedel)</a>
+                <a href="https://ressources.archives.oise.fr/v2/ad60/registre.html" target="_blank">AD60 Oise archieven</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1231,6 +1456,11 @@
                 <span class="source-dot"></span>
                 Familiedocument; Archives Départementales de l'Oise
                 <span class="verification-badge verification-badge--unconfirmed">Te verifiëren</span>
+              </div>
+              <div class="person-card__links">
+                <a href="https://gw.geneanet.org/angelagnet?lang=fr&n=lebesgue&p=felix" target="_blank">Geneanet (angelagnet)</a>
+                <a href="https://ressources.archives.oise.fr/v2/ad60/registre.html" target="_blank">AD60 online archieven</a>
+                <a href="https://ressources.archives.oise.fr/v2/ad60/mariage.html" target="_blank">AD60 huwelijksdispensaties</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1286,6 +1516,10 @@
                 Stadsarchief Rotterdam, DTB Begraven — begrafenis 13-11-1805 bevestigd
                 <span class="verification-badge verification-badge--partial">Gedeeltelijk bevestigd</span>
               </div>
+              <div class="person-card__links">
+                <a href="https://hdl.handle.net/21.12133/E7172394E99445D892BDFEDEED4CF678" target="_blank">Stadsarchief Rotterdam · begrafenis 1805</a>
+                <a href="https://www.bhic.nl/memorix/genealogy/search" target="_blank">BHIC Noord-Brabant</a>
+              </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
                 <div class="context-body">
@@ -1336,6 +1570,10 @@
                 <span class="source-dot"></span>
                 BHIC: overlijden 21-12-1848 ✓ · huwelijk 9-5-1802 ✓ · meerdere kinderakten ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
+              </div>
+              <div class="person-card__links">
+                <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/b736bdeb-b5f9-cf67-d0c5-0f3c521e6faf" target="_blank">BHIC · huwelijk 1802</a>
+                <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/6cb8ba4a-7789-5d42-e67f-d364f88ac3ad" target="_blank">BHIC · overlijden 1848</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1391,6 +1629,10 @@
                 BHIC: geboorte 25-4-1813 ✓ (doc. zegt 26-4) · overlijden 12-1-1881 ✓ · huwelijk Jacoba Samuels ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
+              <div class="person-card__links">
+                <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/4cc4d392-97d5-6e93-1674-f0267c9f4f15" target="_blank">BHIC · geboorte 1813</a>
+                <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/620bcec8-093d-3e92-dc05-b47878428485" target="_blank">BHIC · overlijden 1881</a>
+              </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
                 <div class="context-body">
@@ -1443,6 +1685,10 @@
                 <span class="source-dot"></span>
                 BHIC: geboorte 22-5-1864 ✓ · Erfgoed Leiden: overlijden 1-1-1935 ✓ · huwelijk Anna van Zeijl ✓
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
+              </div>
+              <div class="person-card__links">
+                <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/9cf8096f-079a-1d29-2ce8-82aca5014a09" target="_blank">BHIC · geboorte 1864</a>
+                <a href="https://www.erfgoedleiden.nl/genealogie" target="_blank">Erfgoed Leiden · overlijden 1935</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1498,6 +1744,10 @@
                 <span class="source-dot"></span>
                 Erfgoed Leiden: geboorte 18-12-1899 ✓ · huwelijksakte 27-9-1929 ✓ (kerkdatum: 2-10-1929)
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
+              </div>
+              <div class="person-card__links">
+                <a href="https://www.erfgoedleiden.nl/genealogie" target="_blank">Erfgoed Leiden · geboorte &amp; huwelijk</a>
+                <a href="https://www.wiewaswie.nl" target="_blank">WieWasWie</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
