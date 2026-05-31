@@ -401,6 +401,69 @@
       flex-shrink: 0;
       line-height: 1.3;
     }
+    .etym-origins {
+      margin-top: 3rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem 2.5rem;
+    }
+    .etym-origins__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+    .etym-origins__body p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .etym-origins__schema {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.87rem;
+    }
+    .schema-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.4rem 0;
+    }
+    .schema-indent {
+      margin-left: 1.5rem;
+      border-left: 2px solid var(--border);
+      padding-left: 1.25rem;
+      margin-top: 0.25rem;
+    }
+    .schema-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.3rem;
+    }
+    .schema-dot--grey { background: #aaa; }
+    .schema-dot--gold { background: var(--gold); }
+    .schema-row--unknown { color: var(--ink-light); font-style: italic; }
+    .schema-row--known { color: var(--ink); }
+    .etym-origins__disclaimer {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem !important;
+      color: var(--ink-light) !important;
+      background: rgba(201,163,78,0.07);
+      border-left: 3px solid var(--gold);
+      padding: 0.6rem 1rem !important;
+      border-radius: 0 3px 3px 0;
+      margin-top: 0.5rem;
+    }
 
     /* =========================================================
        TIMELINE
@@ -1102,6 +1165,49 @@
           </div>
         </div>
       </div>
+
+      <!-- EERSTE LEBESGUE PARAGRAAF -->
+      <div class="etym-origins">
+        <h3 class="etym-origins__title">Wie was de eerste Lebesgue?</h3>
+        <div class="etym-origins__body">
+          <p>
+            Barthélemy (~1590) is de vroegst <em>gedocumenteerde</em> voorouder in onze familielijn — maar de naam
+            <em>Lebesgue</em> bestond al vóór hem. Zijn buurman <strong>Grégoire Lebesgue</strong> (~1585,
+            Sainte-Eusoye) was vermoedelijk een broer of neef, en hun gemeenschappelijke vader zou dan geboren zijn
+            rond <strong>1555–1565</strong>. Die man — naam onbekend — was dan de vroegst traceerbare Lebesgue in
+            de regio.
+          </p>
+          <p>
+            Nog verder terug: achternamen die als bijnaam (<em>sobriquet</em>) begonnen, werden pas erfelijk
+            nadat ze een of twee generaties lang waren meegegeven. De eerste persoon die "le bègue" (de stotteraar)
+            werd genoemd en wiens nakomelingen die naam als familienaam overnamen, leefde waarschijnlijk ergens in
+            de <strong>14e of 15e eeuw</strong> in Picardië. Wie precies dat was, is niet te achterhalen — de
+            parochieregisters van Sainte-Eusoye en Saint-André-Farivillers gaan niet verder terug dan de 17e eeuw.
+          </p>
+          <div class="etym-origins__schema">
+            <div class="schema-row schema-row--unknown">
+              <span class="schema-dot schema-dot--grey"></span>
+              <span><em>Onbekende patriarch Lebesgue</em> · geb. ~1555–1565, vermoedelijk Sainte-Eusoye of Saint-André-Farivillers · ouders volledig onbekend</span>
+            </div>
+            <div class="schema-indent">
+              <div class="schema-row schema-row--known">
+                <span class="schema-dot schema-dot--gold"></span>
+                <span><strong>Grégoire Lebesgue</strong> · ~1585–1661 · <em>Écuyer</em>, Seigneur de Cramaille, Sainte-Eusoye · <em>mogelijke broer van Barthélemy</em></span>
+              </div>
+              <div class="schema-row schema-row--known">
+                <span class="schema-dot schema-dot--gold"></span>
+                <span><strong>Barthélemy Lebesgue</strong> · ~1590–1671 · Saint-André-Farivillers · <em>onze directe voorouder</em> ★</span>
+              </div>
+            </div>
+          </div>
+          <p class="etym-origins__disclaimer">
+            ⚠ Het schema hierboven is een <strong>werkhypothese</strong> gebaseerd op geografische nabijheid en
+            geboortejaren. Er is geen primaire bronbevestiging dat Grégoire en Barthélemy broers waren,
+            en de patriarch is geheel hypothetisch. Onderzoek in de AD60 Oise-archieven (parochieregisters
+            vóór 1650) zou dit kunnen bevestigen of weerleggen.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1194,6 +1300,9 @@
   </style>
 
   <hr class="section-divider" />
+
+  <!-- ============================
+       STAMBOOM
   ============================= -->
   <section class="timeline-section" id="stamboom">
     <div class="container">
@@ -1688,7 +1797,7 @@
               </div>
               <div class="person-card__links">
                 <a href="https://www.bhic.nl/memorix/genealogy/search/deeds/9cf8096f-079a-1d29-2ce8-82aca5014a09" target="_blank">BHIC · geboorte 1864</a>
-                <a href="https://www.erfgoedleiden.nl/genealogie" target="_blank">Erfgoed Leiden · overlijden 1935</a>
+                <a href="https://www.erfgoedleiden.nl/collecties/personen/zoek-op-personen/deeds/16f927ae-e8ae-3a34-6468-dab2d4c8c66a" target="_blank">Erfgoed Leiden · overlijden 1935</a>
               </div>
               <details class="context-toggle">
                 <summary>🌍 De wereld in zijn tijd</summary>
@@ -1746,7 +1855,8 @@
                 <span class="verification-badge verification-badge--confirmed">Bevestigd</span>
               </div>
               <div class="person-card__links">
-                <a href="https://www.erfgoedleiden.nl/genealogie" target="_blank">Erfgoed Leiden · geboorte &amp; huwelijk</a>
+                <a href="https://www.erfgoedleiden.nl/collecties/personen/zoek-op-personen/deeds/361e937a-5a6d-6231-a99b-2c35f76bfdfc" target="_blank">Erfgoed Leiden · geboorte 1899</a>
+                <a href="https://www.erfgoedleiden.nl/collecties/personen/zoek-op-personen/deeds/b4b6d427-e9ed-19c9-a9cf-09e0cfdd9a7a" target="_blank">Erfgoed Leiden · huwelijk 1929</a>
                 <a href="https://www.wiewaswie.nl" target="_blank">WieWasWie</a>
               </div>
               <details class="context-toggle">
